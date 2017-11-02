@@ -17,14 +17,14 @@ class Message extends Component {
 
   render () {
     return (
-            <div className={"row message" + (this.state.read ? 'read' : 'unread')}>
+            <div className={"row message " + (this.state.read ? "read" : "unread") + (this.state.selected ? " selected" : "")}>
               <div className="col-xs-1">
                 <div className="row">
                   <div className="col-xs-2">
                     <input type="checkbox" />
                   </div>
                   <div className="col-xs-2">
-                    <i className="star fa fa-star-o"></i>
+                    <i className={"star fa " + (this.state.starred ? "fa-star" : "fa-star-o")}></i>
                   </div>
                 </div>
               </div>
