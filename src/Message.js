@@ -13,18 +13,27 @@ class Message extends Component {
       labels: msg.labels
     }
     this.subject = msg.subject
+    this.id = msg.id
+  }
+
+  handleClick = (e) => {
+    e.preventDefault()
+    alert(`${e.target.id}`)
+    if (e.target.id == 'star') {
+      this.state.starred == true ? this.setState({starred: false}) : this.setState({starred: true})
+    }
   }
 
   render () {
     return (
-            <div className={"row message " + (this.state.read ? "read" : "unread") + (this.state.selected ? " selected" : "")}>
+            <div className={"row message " + (this.state.read ? "read" : "unread") + (this.state.selected ? " selected" : "")} onClick={ this.handleClick }>
               <div className="col-xs-1">
                 <div className="row">
                   <div className="col-xs-2">
-                    <input type="checkbox" />
+                    <input type="checkbox" id="selector"/>
                   </div>
                   <div className="col-xs-2">
-                    <i className={"star fa " + (this.state.starred ? "fa-star" : "fa-star-o")}></i>
+                    <i id='star' className={"star fa " + (this.state.starred ? "fa-star" : "fa-star-o")}></i>
                   </div>
                 </div>
               </div>
