@@ -8,8 +8,8 @@ class Message extends Component {
     super({msg})
     this.state = {
       read: msg.read,
-      starred: msg.starred,
-      selected: msg.selected,
+      starred: msg.starred || false,
+      selected: msg.selected || false,
       labels: msg.labels
     }
     this.subject = msg.subject
@@ -18,10 +18,15 @@ class Message extends Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    alert(`${e.target.id}`)
-    if (e.target.id == 'star') {
-      this.state.starred == true ? this.setState({starred: false}) : this.setState({starred: true})
+
+    if (e.target.id === 'star') {
+      this.state.starred ? this.setState({starred: false}) : this.setState({starred: true})
     }
+    if (e.target.id === 'selector') {
+      this.state.selected ? (e.target.checked=false, this.setState({selected: false})) : (e.target.checked=true, this.setState({selected: true}))
+      alert(` checked ? ${e.target.checked} this.state.selected? ${this.state.selected}`)
+    }
+
   }
 
   render () {
@@ -30,7 +35,7 @@ class Message extends Component {
               <div className="col-xs-1">
                 <div className="row">
                   <div className="col-xs-2">
-                    <input type="checkbox" id="selector"/>
+                    <input type="checkbox" id="selector" />
                   </div>
                   <div className="col-xs-2">
                     <i id='star' className={"star fa " + (this.state.starred ? "fa-star" : "fa-star-o")}></i>
