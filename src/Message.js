@@ -5,7 +5,6 @@ import './App.css';
 
 class Message extends Component {
   constructor({msg}) {
-    console.log({msg});
     super({msg})
     this.state = {
       read: msg.read,
@@ -14,13 +13,11 @@ class Message extends Component {
       labels: msg.labels
     }
     this.subject = msg.subject
-
   }
 
   render () {
-    console.log(this.subject);
     return (
-            <div className="row message unread">
+            <div className={"row message" + (this.state.read ? 'read' : 'unread')}>
               <div className="col-xs-1">
                 <div className="row">
                   <div className="col-xs-2">
