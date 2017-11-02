@@ -4,12 +4,11 @@ import './App.css';
 import Message from './Message'
 
 
-const Messages = ({allmsgs}) => {
-  console.log('allmsgs coming into Messages ', allmsgs)
+const Messages = ({messages, toggleStar, toggleSelect, toggleRead}) => {
     return (
       <div className='collection'>
-        {allmsgs.map( (message) =>
-          <Message msg={message} key={message.id} />
+        {messages.map( (message) =>
+          <Message msg={message}  key={message.id} toggleStar={toggleStar} toggleSelect={toggleSelect} toggleRead={toggleRead} />
           )
         }
       </div>

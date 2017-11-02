@@ -3,8 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import Toolbar from './Toolbar'
 import Messages from './Messages'
+import Message from './Message'
 
-const allMessages = [
+const messages = [
   {
     "id": 1,
     "subject": "You can't input the protocol without calculating the mobile RSS protocol!",
@@ -66,6 +67,33 @@ const allMessages = [
 ]
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {messages}
+  }
+
+  toggleStar = (id) => {
+    console.log(this.state.messages.starred);
+      this.state.starred ? this.setState({starred: false}) : this.setState({starred: true})
+  }
+  toggleSelect = (id) => {
+    console.log(this.state.messages.selected);
+      this.state.selected ? this.setState({selected: false}) : this.setState({selected: true})
+  }
+  toggleRead = (id) => {
+    console.log('id coming into toggleread in app ', id);
+    console.log('this.state.messages[id].read ', this.state.messages[id].read);
+
+    let msg = (this.state.messages.slice(id-1, id))[0]
+    console.log('shallow copy msg ', msg)
+    msg.read = !msg.read
+    console.log('msg after swapping .read property ', msg);
+    this.setState( prevState => (
+      {messages: [...prevState.messages, msg]}
+    ))
+    console.log('this.state.messages after setState ', this.state.messages)
+  }
+
   render() {
     return (
       <div className="App">
@@ -73,7 +101,7 @@ class App extends Component {
           <h1 className="App-title">React-Inbox</h1>
         </header>
         <Toolbar />
-        <Messages allmsgs = {allMessages}/>
+        <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead}/>
       </div>
     );
   }
