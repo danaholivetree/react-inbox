@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 let showBody = false
@@ -37,14 +36,14 @@ const Message = ({msg, toggleRead, toggleSelect, toggleStar, markRead}) => {
   const isChecked = msg.selected ? "checked" : ""
   const devLabel = ((msg.labels).filter( label => label=='dev')).length
   const personalLabel = ((msg.labels).filter( label => label=='personal')).length
-  console.log(isRead +' '+ isSelected +' '+ isStarred + ' ' +isHidden)
+  console.log(isRead +' '+ isSelected +' '+ isStarred + ' ' +isHidden + ' '+isChecked)
 
   return (
           <div className={"row message " + isRead + ' ' + isSelected} >
             <div className="col-xs-1">
               <div className="row">
                 <div className="col-xs-2">
-                  <input type="checkbox" onClick={ handleSelectClick }/>
+                  <input type="checkbox" onClick={ handleSelectClick } checked={isChecked}/>
                 </div>
                 <div className="col-xs-2">
                   <i className={"star fa " + isStarred} onClick={ handleStarClick }></i>

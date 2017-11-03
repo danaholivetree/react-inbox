@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Toolbar from './Toolbar'
 import Messages from './Messages'
@@ -80,7 +79,7 @@ class App extends Component {
     this.setState({
       messages: [...this.state.messages, msg]
     })
-    console.log('new state after setState ',this.state.messages);
+
   }
 
   toggleSelect = (id) => {
@@ -89,7 +88,7 @@ class App extends Component {
     this.setState({
       messages: [...this.state.messages, msg]
     })
-    console.log('new state after setState ',this.state.messages);
+
   }
 
   markRead = (id) => {
@@ -99,13 +98,13 @@ class App extends Component {
       messages: [...this.state.messages, msg]
     })
 
-    console.log('new state after setState ',this.state.messages);
+
   }
 
 
 
   render() {
-    console.log('rendering?');
+
     return (
       <div className="App">
         <header className="App-header">
