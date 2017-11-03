@@ -17,8 +17,8 @@ const Message = ({msg, toggleRead, toggleSelect, toggleStar, markRead}) => {
   }
 
   const handleSelectClick = (e) => {
-    e.preventDefault()
-      console.log('select click on message ', msg.id);
+
+    console.log('select click on message ', msg.id);
     toggleSelect(msg.id)
   }
 
