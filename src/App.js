@@ -66,6 +66,8 @@ const messages = [
   }
 ]
 
+
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -73,26 +75,35 @@ class App extends Component {
   }
 
   toggleStar = (id) => {
-    console.log(this.state.messages.starred);
-      this.state.starred ? this.setState({starred: false}) : this.setState({starred: true})
-  }
-  toggleSelect = (id) => {
-    console.log(this.state.messages.selected);
-      this.state.selected ? this.setState({selected: false}) : this.setState({selected: true})
-  }
-  toggleRead = (id) => {
-    console.log('id coming into toggleread in app ', id);
-    console.log('this.state.messages[id].read ', this.state.messages[id].read);
-
     let msg = (this.state.messages.slice(id-1, id))[0]
-    console.log('shallow copy msg ', msg)
-    msg.read = !msg.read
-    console.log('msg after swapping .read property ', msg);
-    this.setState( prevState => (
+    msg.starred = !msg.starred
+    this.setState( prevState => {
       {messages: [...prevState.messages, msg]}
-    ))
-    console.log('this.state.messages after setState ', this.state.messages)
+    })
+    console.log('new state after setState ',this.state.messages);
   }
+
+  toggleSelect = (id) => {
+    let msg = (this.state.messages.slice(id-1, id))[0]
+    msg.selected = !msg.selected
+    this.setState( prevState => {
+      {messages: [...prevState.messages, msg]}
+    })
+    console.log('new state after setState ',this.state.messages);
+  }
+
+  markRead = (id) => {
+    let msg = (this.state.messages.slice(id-1, id))[0]
+    console.log('msg to change ', msg);
+    msg.read = true
+    console.log('msg read = true');
+    this.setState( prevState => {
+      {messages: [...prevState.messages, msg]}
+    })
+    console.log('new state after setState ',this.state.messages);
+  }
+
+
 
   render() {
     return (
@@ -101,7 +112,7 @@ class App extends Component {
           <h1 className="App-title">React-Inbox</h1>
         </header>
         <Toolbar />
-        <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead}/>
+        <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead} markRead = {this.markRead}/>
       </div>
     );
   }

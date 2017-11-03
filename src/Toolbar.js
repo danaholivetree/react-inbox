@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const Toolbar = () => {
+const Toolbar = ({unreadMessages}) => {
 
+console.log(unreadMessages);
   const handleClick = (e) => {
     console.log(e.target.id)
     if (e.target.id === 'compose') {
@@ -15,7 +16,7 @@ const Toolbar = () => {
     <div className="row toolbar">
       <div className="col-md-12">
         <p className="pull-right">
-          <span className="badge badge">2</span>
+          <span className="badge badge">{unreadMessages}</span>
           unread messages
         </p>
 
