@@ -77,8 +77,8 @@ class App extends Component {
   toggleStar = (id) => {
     let msg = (this.state.messages.slice(id-1, id))[0]
     msg.starred = !msg.starred
-    this.setState( prevState => {
-      {messages: [...prevState.messages, msg]}
+    this.setState({
+      messages: [...this.state.messages, msg]
     })
     console.log('new state after setState ',this.state.messages);
   }
@@ -86,26 +86,26 @@ class App extends Component {
   toggleSelect = (id) => {
     let msg = (this.state.messages.slice(id-1, id))[0]
     msg.selected = !msg.selected
-    this.setState( prevState => {
-      {messages: [...prevState.messages, msg]}
+    this.setState({
+      messages: [...this.state.messages, msg]
     })
     console.log('new state after setState ',this.state.messages);
   }
 
   markRead = (id) => {
     let msg = (this.state.messages.slice(id-1, id))[0]
-    console.log('msg to change ', msg);
     msg.read = true
-    console.log('msg read = true');
-    this.setState( prevState => {
-      {messages: [...prevState.messages, msg]}
+    this.setState({
+      messages: [...this.state.messages, msg]
     })
+
     console.log('new state after setState ',this.state.messages);
   }
 
 
 
   render() {
+    console.log('rendering?');
     return (
       <div className="App">
         <header className="App-header">
