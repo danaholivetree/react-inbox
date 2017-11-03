@@ -34,19 +34,20 @@ const Message = ({msg, toggleRead, toggleSelect, toggleStar, markRead}) => {
   const isSelected = msg.selected ? "selected" : ""
   const isStarred = msg.starred ? "fa-star" : "fa-star-o"
   const isHidden = showBody ? " " : "hidden"
+  const isChecked = msg.selected ? "checked" : ""
   const devLabel = ((msg.labels).filter( label => label=='dev')).length
   const personalLabel = ((msg.labels).filter( label => label=='personal')).length
   console.log(isRead +' '+ isSelected +' '+ isStarred + ' ' +isHidden)
 
   return (
-          <div className={"row message " + (msg.read ? "read " : "unread ") + (msg.selected ? "selected " : " ")} >
+          <div className={"row message " + isRead + ' ' + isSelected} >
             <div className="col-xs-1">
               <div className="row">
                 <div className="col-xs-2">
                   <input type="checkbox" onClick={ handleSelectClick }/>
                 </div>
                 <div className="col-xs-2">
-                  <i className={"star fa " + (msg.starred ? "fa-star" : "fa-star-o")} onClick={ handleStarClick }></i>
+                  <i className={"star fa " + isStarred} onClick={ handleStarClick }></i>
                 </div>
               </div>
             </div>
@@ -57,7 +58,7 @@ const Message = ({msg, toggleRead, toggleSelect, toggleStar, markRead}) => {
                 {msg.subject}
               </a>
             </div>
-              <div className={"row message-body " +(showBody ? " " : "hidden")} >
+              <div className={"row message-body " +(showBody ? "hidden " : "hidden")} >
                 <div className="col-xs-11 col-xs-offset-1">
                   This is the body of the message.
                 </div>
