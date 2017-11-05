@@ -1,21 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
-const Toolbar = ({unreadMessages}) => {
+const Toolbar = ({calculateSelected, calculateUnread, selectAll, deleteSelected, markSelectedRead, markSelectedUnread}) => {
 
-console.log(unreadMessages);
-  const handleClick = (e) => {
-    console.log(e.target.id)
-    if (e.target.id === 'compose') {
-      console.log('should show compose component');
-    }
-  }
+
+const handleMarkAsRead = (e) => {
+  e.preventDefault()
+   markSelectedRead()
+}
+
+const handleMarkAsUnread = (e) => {
+  e.preventDefault()
+   markSelectedUnread()
+}
+
+const unreadCount = calculateUnread().length
+console.log('unreadCount ', unreadCount);
 
   return (
     <div className="row toolbar">
       <div className="col-md-12">
         <p className="pull-right">
-          <span className="badge badge">{unreadMessages}</span>
+          <span className="badge badge">{unreadCount}</span>
           unread messages
         </p>
 
@@ -24,34 +30,32 @@ console.log(unreadMessages);
         </a>
 
         <button className="btn btn-default" >
-          <i className="fa fa-square-o"></i>
-          <i className="fa fa-minus-square-o"></i>
-          <i className="fa fa-check-square-o"></i>
+
         </button>
 
-        <button className="btn btn-default" disabled="disabled">
+        <button className="btn btn-default" disabled="" onClick="handleMarkAsRead">
           Mark As Read
         </button>
 
-        <button className="btn btn-default" disabled="disabled">
+        <button className="btn btn-default" disabled="" onClick="handleMarkAsUnread">
           Mark As Unread
         </button>
 
-        <select className="form-control label-select" disabled="disabled">
+        <select className="form-control label-select" disabled="">
           <option>Apply label</option>
           <option value="dev">dev</option>
           <option value="personal">personal</option>
           <option value="gschool">gschool</option>
         </select>
 
-        <select className="form-control label-select" disabled="disabled">
+        <select className="form-control label-select" disabled="">
           <option>Remove label</option>
           <option value="dev">dev</option>
           <option value="personal">personal</option>
           <option value="gschool">gschool</option>
         </select>
 
-        <button className="btn btn-default" disabled="disabled">
+        <button className="btn btn-default" disabled="">
           <i className="fa fa-trash-o"></i>
         </button>
       </div>
