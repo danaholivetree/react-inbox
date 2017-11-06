@@ -73,52 +73,53 @@ class App extends Component {
   }
 
   toggleStar = (id) => {
-    let msg = (this.state.messages.slice(id-1, id))[0]
-    msg.starred = !msg.starred
+    id -= 1
+    let msg = this.state.messages[id]
     this.setState({
-      messages: [...this.state.messages, msg]
+      messages: [...this.state.messages.splice(0,id), {...msg, starred: !msg.starred}, ...this.state.messages.splice(id+1)
+      ]
     })
 
   }
 
   toggleSelect = (id) => {
-    let msg = (this.state.messages.slice(id-1, id))[0]
-    msg.selected = !msg.selected
+    id -= 1
+    let msg = this.state.messages[id]
     this.setState({
-      messages: [...this.state.messages, msg]
+      messages: [
+        ...this.state.messages.splice(0,id),
+        {...msg, selected: !msg.selected},
+      ...this.state.messages.splice(id)
+      ]
     })
 
   }
 
   markOneRead = (id) => {
-    let msg = (this.state.messages.slice(id-1, id))[0]
-    msg.read = true
+    id -= 1
+    let msg = this.state.messages[id]
     this.setState({
-      messages: [...this.state.messages, msg]
+      messages: [
+        ...this.state.messages.splice(0, id),
+        {...msg, read: true},
+        ...this.state.messages.splice(id)
+      ]
     })
   }
 
   markSelectedRead = () => {
-    let msgs = this.state.messages.filter( (msg) => {
-      return msg.selected === true
-    })
-    let readMsgs = msgs.map((msg) => {
-      return msg.read = true
-    })
     this.setState({
-      messages: [...this.state.messages, readMsgs]
+      messages: this.state.messages.map( (msg) => {
+        msg.selected && !msg.read ? {...msg, read:true} : msg
+      })
     })
   }
 
   markSelectedUnread = () => {
-    let msgs = this.state.messages.filter( (msg) => {
-      return msg.selected === true
-    })
-    let unreadMsgs = msgs.map((msg) => {
-      return msg.read = false
-    })
-    this.setState({
-      messages: [...this.state.messages, unreadMsgs]
+    return this.setState({
+      messages: this.state.messages.map( (msg) => {
+        msg.selected && msg.read ? {...msg, read:false} : msg
+      })
     })
   }
 
@@ -158,7 +159,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">React-Inbox</h1>
         </header>
-        <Toolbar calculateSelected={this.calculateSelected} calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected}/>
+        <Toolbar calculateSelected={this.calculateSelected} calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected} messages={this.state.messages}/>
 
         <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead} markOneRead = {this.markOneRead}/>
       </div>
