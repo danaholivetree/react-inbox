@@ -89,7 +89,7 @@ class App extends Component {
       messages: [
         ...this.state.messages.splice(0,id),
         {...msg, selected: !msg.selected},
-      ...this.state.messages.splice(id)
+      ...this.state.messages.splice(id+1)
       ]
     })
 
@@ -98,11 +98,12 @@ class App extends Component {
   markOneRead = (id) => {
     id -= 1
     let msg = this.state.messages[id]
+    console.log('msg clicked as read ', msg);
     this.setState({
       messages: [
         ...this.state.messages.splice(0, id),
         {...msg, read: true},
-        ...this.state.messages.splice(id)
+        ...this.state.messages.splice(id+1)
       ]
     })
   }
