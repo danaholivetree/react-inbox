@@ -15,7 +15,8 @@ const handleMarkAsUnread = (e) => {
 }
 
 const unreadCount = messages.filter( (msg) => {
-  return !msg.read
+  console.log(msg);
+  return msg.read === false
 })
 
 const disabled = messages.filter( (msg) => {
@@ -34,7 +35,7 @@ const disabled = messages.filter( (msg) => {
         </a>
 
         <button className="btn btn-default" >
-
+         {selectAllIcon}
         </button>
 
         <button className="btn btn-default" disabled={disabled} onClick={handleMarkAsRead}>

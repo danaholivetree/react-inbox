@@ -76,10 +76,12 @@ class App extends Component {
     id -= 1
     let msg = this.state.messages[id]
     this.setState({
-      messages: [...this.state.messages.splice(0,id), {...msg, starred: !msg.starred}, ...this.state.messages.splice(id+1)
+      messages: [
+        ...this.state.messages.slice(0,id),
+        {...msg, starred: !msg.starred},
+        ...this.state.messages.slice(id+1)
       ]
     })
-
   }
 
   toggleSelect = (id) => {
@@ -87,23 +89,21 @@ class App extends Component {
     let msg = this.state.messages[id]
     this.setState({
       messages: [
-        ...this.state.messages.splice(0,id),
+        ...this.state.messages.slice(0, id),
         {...msg, selected: !msg.selected},
-      ...this.state.messages.splice(id+1)
+        ...this.state.messages.slice(id+1)
       ]
     })
-
   }
 
   markOneRead = (id) => {
     id -= 1
     let msg = this.state.messages[id]
-    console.log('msg clicked as read ', msg);
     this.setState({
       messages: [
-        ...this.state.messages.splice(0, id),
+        ...this.state.messages.slice(0, id),
         {...msg, read: true},
-        ...this.state.messages.splice(id+1)
+        ...this.state.messages.slice(id+1)
       ]
     })
   }
@@ -117,7 +117,7 @@ class App extends Component {
   }
 
   markSelectedUnread = () => {
-    return this.setState({
+    this.setState({
       messages: this.state.messages.map( (msg) => {
         msg.selected && msg.read ? {...msg, read:false} : msg
       })
@@ -125,25 +125,26 @@ class App extends Component {
   }
 
   calculateSelected = () => {
-    let sel = this.state.messages.filter( (msg) => {
-      return msg.selected === true
+    this.state.messages.filter( (msg) => {
+      return msg.selected
     })
-    return sel.length
   }
 
   calculateUnread = () => {
-    let unreadTotal = this.state.messages.filter( (msg) => {
-       return msg.read === false
+    this.state.messages.filter( (msg) => {
+       return !msg.read
     })
-    return unreadTotal
   }
 
   selectAll = () => {
-    const selAll = (this.state.messages).map( (msg) => {
-      return msg.selected=true
+    const allSel = this.state.messages.filter( (msg) => {
+      return msg.selected
     })
-     this.setState({
-      messages: [...this.state.messages, selAll]
+
+    this.setState({
+      messages: this.state.messages.map( (msg) => {
+        allSel === this.state.messages? {...msg, selected: false} :  {...msg, selected: true}
+      })
     })
   }
 
