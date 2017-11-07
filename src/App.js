@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Toolbar from './Toolbar'
 import Messages from './Messages'
+import Compose from './Compose'
 
 const messages = [
   {
@@ -168,13 +169,30 @@ class App extends Component {
     })
     this.setState({ messages })
   }
+
+  toggleCompose = () => {
+    this.setState({composing: !this.state.composing || true})
+    console.log("this.state.composing ", this.state.composing)
+  }
+
+  async send(content)  {
+    await this.request('/api/messages', 'POST', content)
+  }
+
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">React-Inbox</h1>
         </header>
-        <Toolbar  calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected} addLabel={this.addLabel} removeLabel={this.removeLabel} messages={this.state.messages}/>
+        <Toolbar  calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected} addLabel={this.addLabel} removeLabel={this.removeLabel} toggleCompose={this.toggleCompose}  messages={this.state.messages}/>
+
+        {this.state.composing ?
+          <Compose submit={ this.submit } send={this.send}/> :
+          null
+        }
+
         <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead} markOneRead = {this.markOneRead}/>
       </div>
     );

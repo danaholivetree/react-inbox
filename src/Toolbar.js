@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const Toolbar = ({messages, calculateUnread, selectAll, deleteSelected, markSelectedRead, markSelectedUnread, addLabel, removeLabel}) => {
+const Toolbar = ({messages, calculateUnread, selectAll, deleteSelected, markSelectedRead, markSelectedUnread, addLabel, removeLabel, toggleCompose}) => {
 
 
 const handleMarkAsRead = (e) => {
@@ -48,7 +48,7 @@ const handleRemoveLabel = (e) => {
           unread messages
         </p>
 
-        <a className="btn btn-danger">
+        <a className="btn btn-danger" onClick={toggleCompose}>
           <i className="fa fa-plus" id='compose'></i>
         </a>
 
