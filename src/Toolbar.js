@@ -18,8 +18,9 @@ const unreadCount = messages.filter( (msg) => {
   return !msg.read
 })
 
-const disabled = messages.filter( (msg) => {
-  return msg.selected }) ? '' : 'disabled'
+const disabled = messages.every( (msg) => {
+  return !msg.selected ? 'disabled' : ''
+})
 
 const calculateSelected = messages.filter( (msg) => {
     return msg.selected
