@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const Toolbar = ({messages, calculateSelected, calculateUnread, selectAll, deleteSelected, markSelectedRead, markSelectedUnread}) => {
+const Toolbar = ({messages, calculateUnread, selectAll, deleteSelected, markSelectedRead, markSelectedUnread}) => {
 
 
 const handleMarkAsRead = (e) => {
@@ -16,11 +16,22 @@ const handleMarkAsUnread = (e) => {
 
 const unreadCount = messages.filter( (msg) => {
   console.log(msg);
-  return msg.read === false
+  return !msg.read
 })
 
 const disabled = messages.filter( (msg) => {
   return msg.selected }) ? '' : 'disabled'
+
+const calculateSelected = messages.filter( (msg) => {
+    return msg.selected
+    })
+
+const selectAllIcon =
+  calculateSelected.length === messages.length ? <i class="fa fa-check-square-o"/> :
+  calculateSelected.length === 0 ? <i class="fa fa-square-o"/> :
+  <i class="fa fa-minus-square-o"/>
+
+
 
   return (
     <div className="row toolbar">
@@ -34,8 +45,8 @@ const disabled = messages.filter( (msg) => {
           <i className="fa fa-plus" id='compose'></i>
         </a>
 
-        <button className="btn btn-default" >
-         {selectAllIcon}
+        <button className="btn btn-default" onClick={selectAll} >
+          {selectAllIcon}
         </button>
 
         <button className="btn btn-default" disabled={disabled} onClick={handleMarkAsRead}>

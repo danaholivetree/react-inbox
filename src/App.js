@@ -124,11 +124,7 @@ class App extends Component {
     })
   }
 
-  calculateSelected = () => {
-    this.state.messages.filter( (msg) => {
-      return msg.selected
-    })
-  }
+
 
   calculateUnread = () => {
     this.state.messages.filter( (msg) => {
@@ -140,10 +136,9 @@ class App extends Component {
     const allSel = this.state.messages.filter( (msg) => {
       return msg.selected
     })
-
     this.setState({
       messages: this.state.messages.map( (msg) => {
-        allSel === this.state.messages? {...msg, selected: false} :  {...msg, selected: true}
+        return allSel.length < this.state.messages.length ? {...msg, selected: true} : {...msg, selected: false}
       })
     })
   }
@@ -154,6 +149,7 @@ class App extends Component {
   }
 
 
+
   render() {
 
     return (
@@ -161,7 +157,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">React-Inbox</h1>
         </header>
-        <Toolbar calculateSelected={this.calculateSelected} calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected} messages={this.state.messages}/>
+        <Toolbar  calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected} messages={this.state.messages}/>
 
         <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead} markOneRead = {this.markOneRead}/>
       </div>
