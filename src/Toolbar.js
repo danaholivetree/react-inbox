@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const Toolbar = ({messages, calculateUnread, selectAll, deleteSelected, markSelectedRead, markSelectedUnread}) => {
+const Toolbar = ({messages, calculateUnread, selectAll, deleteSelected, markSelectedRead, markSelectedUnread, addLabel, removeLabel}) => {
 
 
 const handleMarkAsRead = (e) => {
@@ -15,6 +15,7 @@ const handleMarkAsUnread = (e) => {
 }
 
 const unreadCount = messages.filter( (msg) => {
+  console.log('messages in unread count after render ', messages);
   return !msg.read
 })
 
@@ -31,8 +32,15 @@ const selectAllIcon =
   calculateSelected.length === 0 ? <i className="fa fa-square-o"/> :
   <i className="fa fa-minus-square-o"/>
 
+const handleAddLabel = (e) => {
+  e.preventDefault()
+  addLabel(e.target.value)
+}
 
-
+const handleRemoveLabel = (e) => {
+  e.preventDefault()
+  removeLabel(e.target.value)
+}
   return (
     <div className="row toolbar">
       <div className="col-md-12">
@@ -57,14 +65,14 @@ const selectAllIcon =
           Mark As Unread
         </button>
 
-        <select className="form-control label-select" disabled={disabled}>
+        <select className="form-control label-select" onChange={handleAddLabel} disabled={disabled}>
           <option>Apply label</option>
           <option value="dev">dev</option>
           <option value="personal">personal</option>
           <option value="gschool">gschool</option>
         </select>
 
-        <select className="form-control label-select" disabled={disabled}>
+        <select className="form-control label-select" onChange={handleRemoveLabel} disabled={disabled}>
           <option>Remove label</option>
           <option value="dev">dev</option>
           <option value="personal">personal</option>

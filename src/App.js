@@ -64,8 +64,6 @@ const messages = [
   }
 ]
 
-
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -124,8 +122,6 @@ class App extends Component {
     })
   }
 
-
-
   calculateUnread = () => {
     this.state.messages.filter( (msg) => {
        return !msg.read
@@ -133,32 +129,52 @@ class App extends Component {
   }
 
   selectAll = () => {
-    const allSel = this.state.messages.filter( (msg) => {
-      return msg.selected
-    })
-    this.setState({
-      messages: this.state.messages.map( (msg) => {
-        return allSel.length < this.state.messages.length ? {...msg, selected: true} : {...msg, selected: false}
-      })
-    })
-  }
+    const sel = this.state.messages.filter(msg => msg.selected)
+    const notAllSel = sel.length < this.state.messages.length
+      this.setState({
+        messages: this.state.messages.map(msg => (
+            notAllSel ? { ...msg, selected:true } : { ...msg, selected:false }
+          ))
+        })
+      }
 
   deleteSelected = () => {
       const messages = this.state.messages.filter(message => !message.selected)
        this.setState({ messages })
   }
 
+  addLabel = (value) => {
+    let messages = this.state.messages.map(msg => (
+      msg.selected && !msg.labels.includes(value) ?
+        { ...msg, labels: [...msg.labels, value].sort() } :
+        msg
+    ))
+    this.setState({ messages })
+  }
 
-
+  removeLabel = (value) => {
+    let messages = this.state.messages.map(msg => {
+      let i = msg.labels.indexOf(value)
+      if (msg.selected && i !== -1) {
+        return {
+          ...msg,
+          labels: [
+            ...msg.labels.slice(0, i),
+            ...msg.labels.slice(i + 1)
+          ]
+        }
+      }
+      return msg
+    })
+    this.setState({ messages })
+  }
   render() {
-
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">React-Inbox</h1>
         </header>
-        <Toolbar  calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected} messages={this.state.messages}/>
-
+        <Toolbar  calculateUnread = {this.calculateUnread} selectAll={this.selectAll} markSelectedRead={this.markSelectedRead} markSelectedUnread={this.markSelectedUnread} deleteSelected={this.deleteSelected} addLabel={this.addLabel} removeLabel={this.removeLabel} messages={this.state.messages}/>
         <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead} markOneRead = {this.markOneRead}/>
       </div>
     );
