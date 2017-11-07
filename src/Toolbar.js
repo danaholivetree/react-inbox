@@ -15,7 +15,6 @@ const handleMarkAsUnread = (e) => {
 }
 
 const unreadCount = messages.filter( (msg) => {
-  console.log(msg);
   return !msg.read
 })
 
@@ -27,9 +26,9 @@ const calculateSelected = messages.filter( (msg) => {
     })
 
 const selectAllIcon =
-  calculateSelected.length === messages.length ? <i class="fa fa-check-square-o"/> :
-  calculateSelected.length === 0 ? <i class="fa fa-square-o"/> :
-  <i class="fa fa-minus-square-o"/>
+  calculateSelected.length === messages.length ? <i className="fa fa-check-square-o"/> :
+  calculateSelected.length === 0 ? <i className="fa fa-square-o"/> :
+  <i className="fa fa-minus-square-o"/>
 
 
 

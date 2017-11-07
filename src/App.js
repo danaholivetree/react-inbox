@@ -111,7 +111,7 @@ class App extends Component {
   markSelectedRead = () => {
     this.setState({
       messages: this.state.messages.map( (msg) => {
-        msg.selected && !msg.read ? {...msg, read:true} : msg
+        return msg.selected && !msg.read ? {...msg, read:true} : msg
       })
     })
   }
@@ -119,7 +119,7 @@ class App extends Component {
   markSelectedUnread = () => {
     this.setState({
       messages: this.state.messages.map( (msg) => {
-        msg.selected && msg.read ? {...msg, read:false} : msg
+        return msg.selected && msg.read ? {...msg, read:false} : msg
       })
     })
   }
