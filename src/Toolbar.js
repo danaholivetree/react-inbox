@@ -15,7 +15,6 @@ const handleMarkAsUnread = (e) => {
 }
 
 const unreadCount = messages.filter( (msg) => {
-  console.log('messages in unread count after render ', messages);
   return !msg.read
 })
 
