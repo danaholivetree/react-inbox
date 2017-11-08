@@ -5,17 +5,17 @@ const Message = ({msg, toggleRead, toggleSelect, toggleStar, markOneRead}) => {
 
   const handleReadClick = (e) => {
     e.preventDefault()
-    markOneRead(msg.id)
+    markOneRead(msg)
 
   }
 
   const handleSelectClick = (e) => {
-    toggleSelect(msg.id)
+    toggleSelect(msg)
   }
 
   const handleStarClick = (e) => {
     e.preventDefault()
-    toggleStar(msg.id)
+    toggleStar(msg)
   }
 
 

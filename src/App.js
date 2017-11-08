@@ -22,7 +22,7 @@ class App extends Component {
       body = JSON.stringify(body)
     }
 
-    return await fetch("http://localhost:8082" + path, {
+    return await fetch(`http://localhost:8082${path}`, {
       method,
       headers: {
         'Content-Type': 'application/json',
@@ -32,10 +32,19 @@ class App extends Component {
     })
   }
 
+  async update(payload) {
+    await this.request('/api/messages', 'PATCH', payload)
+  }
 
-  toggleStar = (id) => {
-    id -= 1
-    let msg = this.state.messages[id]
+
+  async toggleStar(msg) {
+    let id = this.state.messages.indexOf(msg)
+    await this.update({
+      "messageIds": [ msg.id ],
+      "command": "star",
+      "star": msg.starred
+    })
+
     this.setState({
       messages: [
         ...this.state.messages.slice(0,id),
@@ -155,7 +164,7 @@ class App extends Component {
           null
         }
 
-        <Messages messages={this.state.messages} toggleStar = {this.toggleStar} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead} markOneRead = {this.markOneRead}/>
+        <Messages messages={this.state.messages} toggleStar = {this.toggleStar.bind(this)} toggleSelect={this.toggleSelect} toggleRead = {this.toggleRead} markOneRead = {this.markOneRead}/>
       </div>
     );
   }
