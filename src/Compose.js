@@ -7,8 +7,8 @@ const Compose = ({send}) => {
   const submit = (e) => {
     e.preventDefault()
     send({
-      subject: e.target.subject,
-      body: e.target.body
+      subject: e.target.subject.value,
+      body: e.target.body.value
     })
   }
 

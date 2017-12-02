@@ -4,7 +4,8 @@ import './App.css';
 const Message = ({msg, toggleRead, toggleSelect, toggleStar, markOneRead}) => {
 
   const handleReadClick = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
+    console.log('msg that was clicked on ', msg)
     markOneRead(msg)
 
   }
@@ -25,6 +26,7 @@ const Message = ({msg, toggleRead, toggleSelect, toggleStar, markOneRead}) => {
   const isChecked = msg.selected ? "checked" : ""
   const devLabel = ((msg.labels).filter( label => label==='dev')).length
   const personalLabel = ((msg.labels).filter( label => label==='personal')).length
+  const gSchoolLabel = ((msg.labels).filter( label => label==='gSchool')).length
 
   return (
           <div className={"row message " + isRead + ' ' + isSelected} >
@@ -41,9 +43,10 @@ const Message = ({msg, toggleRead, toggleSelect, toggleStar, markOneRead}) => {
             <div className="col-xs-11" onClick={ handleReadClick }>
             {devLabel ? <span className="label label-warning">dev</span> : ''}
             {personalLabel ? <span className="label label-warning">personal</span> : ''}
-              <a href="#">
+            {gSchoolLabel ? <span className="label label-warning">gSchool</span> : ''}
+
                 {msg.subject}
-              </a>
+
             </div>
 
           </div>

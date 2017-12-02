@@ -78,7 +78,7 @@ const handleRemoveLabel = (e) => {
           <option value="gschool">gschool</option>
         </select>
 
-        <button className="btn btn-default" disabled={disabled}>
+        <button className="btn btn-default" disabled={disabled} onClick= {deleteSelected}>
           <i className="fa fa-trash-o"></i>
         </button>
       </div>
